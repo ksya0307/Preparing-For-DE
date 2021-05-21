@@ -15,7 +15,7 @@ namespace podgotovochkaKDem
     public partial class clients : Form
     {
         SqlConnection con = new SqlConnection(Properties.Settings.Default.constr);
-   
+        SqlDataAdapter adapter;
         public clients()
         {
             InitializeComponent();
@@ -27,13 +27,13 @@ namespace podgotovochkaKDem
             
 
             con.Open();
-            SqlDataAdapter adapter = new SqlDataAdapter("select * from clients order by [Тэг] DESC", con);
+            adapter = new SqlDataAdapter("select * from clients order by [Тэг] DESC", con);
             SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dataGridView1.ReadOnly = true;
             dataGridView1.DataSource = dt;
-
+            adapter.Dispose();
             con.Close();
         }
 
@@ -65,6 +65,23 @@ namespace podgotovochkaKDem
         {
             addclient addclient = new addclient();
             addclient.ShowDialog();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+     
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            con.Open();
+            adapter = new SqlDataAdapter("select * from clients where LOWER(Фамилия) like '%" + textBox1.Text.ToLower() + "'", con);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.ReadOnly = true;
+            dataGridView1.DataSource = dt;
+            adapter.Dispose();
+            con.Close();
         }
     }
 }

@@ -23,18 +23,21 @@ namespace podgotovochkaKDem
 
         private void clients_Load(object sender, EventArgs e)
         {
+            this.companyDataSet.EnforceConstraints = false;
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "companyDataSet.clients". При необходимости она может быть перемещена или удалена.
+            this.clientsTableAdapter.Fill(this.companyDataSet.clients);
             
             
 
-            con.Open();
-            adapter = new SqlDataAdapter("select * from clients order by [Тэг] DESC", con);
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dataGridView1.ReadOnly = true;
-            dataGridView1.DataSource = dt;
-            adapter.Dispose();
-            con.Close();
+            //con.Open();
+            //adapter = new SqlDataAdapter("select * from clients order by [Тэг] DESC", con);
+            //SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+            //DataTable dt = new DataTable();
+            //adapter.Fill(dt);
+            //dataGridView1.ReadOnly = true;
+            //dataGridView1.DataSource = dt;
+            //adapter.Dispose();
+            //con.Close();
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -65,23 +68,24 @@ namespace podgotovochkaKDem
         {
             addclient addclient = new addclient();
             addclient.ShowDialog();
+            this.clientsTableAdapter.Fill(this.companyDataSet.clients);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-     
+            clientsBindingSource.Filter = "Фамилия like '%" + textBox1.Text + "%'";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            con.Open();
-            adapter = new SqlDataAdapter("select * from clients where LOWER(Фамилия) like '%" + textBox1.Text.ToLower() + "'", con);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dataGridView1.ReadOnly = true;
-            dataGridView1.DataSource = dt;
-            adapter.Dispose();
-            con.Close();
+            //con.Open();
+            //adapter = new SqlDataAdapter("select * from clients where LOWER(Фамилия) like '%" + textBox1.Text.ToLower() + "'", con);
+            //DataTable dt = new DataTable();
+            //adapter.Fill(dt);
+            //dataGridView1.ReadOnly = true;
+            //dataGridView1.DataSource = dt;
+            //adapter.Dispose();
+            //con.Close();
         }
     }
 }

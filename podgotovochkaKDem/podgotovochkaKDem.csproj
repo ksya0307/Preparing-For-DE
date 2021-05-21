@@ -58,6 +58,9 @@
     <Compile Include="clients.Designer.cs">
       <DependentUpon>clients.cs</DependentUpon>
     </Compile>
+    <Compile Include="companyDataSet.cs">
+      <DependentUpon>companyDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="companyDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
